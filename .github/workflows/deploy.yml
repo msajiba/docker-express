@@ -20,20 +20,30 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/sws/docker-express || exit 1
+            set -e
 
-            if [ ! -d ".git" ]; then
-              git clone git@github.com:msajiba/docker-express.git
+            APP_DIR=/home/sws/apps/docker-express
+            REPO_URL=https://github.com/msajiba/docker-express.git
+
+            mkdir -p /home/sws/apps
+            cd /home/sws/apps
+
+            if [ ! -d "docker-express/.git" ]; then
+              git clone $REPO_URL docker-express
             else
-              git pull
+              cd docker-express
+              git pull origin main
             fi
+
+            cd docker-express
 
             docker stop express-app || true
             docker rm express-app || true
 
-            docker build -t express-app .
+            docker build -t express-app:latest .
+
             docker run -d \
               --name express-app \
               -p 3000:3000 \
-              --restart always \
-              express-app
+              --restart unless-stopped \
+              express-app:latest
