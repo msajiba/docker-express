@@ -23,7 +23,7 @@ jobs:
             cd /home/sws/docker-express || exit 1
 
             if [ ! -d ".git" ]; then
-              git clone https://github.com/msajiba/docker-express.git
+              git clone git@github.com:msajiba/docker-express.git
             else
               git pull
             fi
