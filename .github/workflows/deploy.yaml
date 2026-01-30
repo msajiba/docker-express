@@ -17,5 +17,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: cd /home/sws/docker-express/docker-express
-            git pull
+            git pull origin main
             docker compose up -d --build
