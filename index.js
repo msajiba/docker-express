@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({
-    message: "🚀 Express app running in Docker!",
+    message: "🚀 Express app running in Docker! CI/CD added",
     status: "success",
   });
 });
