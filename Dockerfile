@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Create app directory
 WORKDIR /app
@@ -6,13 +6,13 @@ WORKDIR /app
 # Copy package files first (better caching)
 COPY package*.json ./
 
-RUN npm install --production
+RUN npm install
 
 # Copy source code
-COPY src ./src
+COPY . .
 
 # Expose app port
-EXPOSE 3000
+EXPOSE 8000
 
 # Start app
-CMD ["npm", "start"]
+CMD ["node", "index.js"]
